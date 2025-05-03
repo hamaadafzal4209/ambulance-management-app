@@ -49,7 +49,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Load user from AsyncStorage
     const loadUser = async () => {
       try {
         const userString = await AsyncStorage.getItem("user");
@@ -71,8 +70,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     password: string,
     role: User["role"]
   ) => {
-    // In a real app, you would validate credentials with your backend
-    // For demo purposes, we'll just create a mock user
     setIsLoading(true);
     try {
       const mockUser: User = {
@@ -85,7 +82,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       await AsyncStorage.setItem("user", JSON.stringify(mockUser));
       setUser(mockUser);
 
-      // Navigate to the appropriate dashboard based on role
       router.replace(`/${role}/dashboard`);
     } catch (error) {
       console.error("Sign in failed:", error);
@@ -101,7 +97,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     password: string,
     role: User["role"]
   ) => {
-    // In a real app, you would register the user with your backend
     setIsLoading(true);
     try {
       const mockUser: User = {

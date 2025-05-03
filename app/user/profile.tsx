@@ -148,6 +148,8 @@ export default function Profile() {
                   </View>
                 </View>
 
+                <View style={styles.infoDivider}></View>
+
                 <View style={styles.infoItem}>
                   <View style={styles.infoIcon}>
                     <Feather name="mail" size={16} color={colors.blue} />
@@ -157,6 +159,8 @@ export default function Profile() {
                     <Text style={styles.infoValue}>{profileData.email}</Text>
                   </View>
                 </View>
+
+                <View style={styles.infoDivider}></View>
 
                 <View style={styles.infoItem}>
                   <View style={styles.infoIcon}>
@@ -168,6 +172,8 @@ export default function Profile() {
                   </View>
                 </View>
 
+                <View style={styles.infoDivider}></View>
+
                 <View style={styles.infoItem}>
                   <View style={styles.infoIcon}>
                     <Feather name="map-pin" size={16} color={colors.blue} />
@@ -177,6 +183,8 @@ export default function Profile() {
                     <Text style={styles.infoValue}>{profileData.address}</Text>
                   </View>
                 </View>
+
+                <View style={styles.infoDivider}></View>
 
                 <View style={styles.infoItem}>
                   <View style={styles.infoIcon}>
@@ -236,6 +244,8 @@ export default function Profile() {
                   </View>
                 </View>
 
+                <View style={styles.infoDivider}></View>
+
                 <View style={styles.infoItem}>
                   <View style={styles.infoIcon}>
                     <Feather name="phone" size={16} color={colors.blue} />
@@ -247,6 +257,8 @@ export default function Profile() {
                     </Text>
                   </View>
                 </View>
+
+                <View style={styles.infoDivider}></View>
 
                 <View style={styles.infoItem}>
                   <View style={styles.infoIcon}>
@@ -284,6 +296,8 @@ export default function Profile() {
               />
             </View>
 
+            <View style={styles.infoDivider}></View>
+
             <View style={styles.notificationItem}>
               <View style={styles.notificationInfo}>
                 <View style={styles.infoIcon}>
@@ -298,6 +312,8 @@ export default function Profile() {
                 thumbColor={colors.white}
               />
             </View>
+
+            <View style={styles.infoDivider}></View>
 
             <View style={styles.notificationItem}>
               <View style={styles.notificationInfo}>
@@ -338,6 +354,8 @@ export default function Profile() {
               />
             </TouchableOpacity>
 
+            <View style={styles.infoDivider}></View>
+
             <TouchableOpacity style={styles.accountOption}>
               <View style={styles.accountOptionLeft}>
                 <View
@@ -356,6 +374,8 @@ export default function Profile() {
                 color={colors.mediumGray}
               />
             </TouchableOpacity>
+
+            <View style={styles.infoDivider}></View>
 
             <TouchableOpacity
               style={styles.accountOption}
@@ -425,13 +445,13 @@ const styles = StyleSheet.create({
   },
   profileHeader: {
     alignItems: "center",
-    marginBottom: spacing.xl,
+    marginBottom: spacing.sm,
   },
   avatarContainer: {
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: colors.blue,
+    backgroundColor: colors.danger,
     justifyContent: "center",
     alignItems: "center",
     marginBottom: spacing.md,
@@ -450,19 +470,26 @@ const styles = StyleSheet.create({
   profileEmail: {
     fontSize: 14,
     color: colors.mediumGray,
+    paddingBottom: 10
   },
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
     marginBottom: spacing.sm,
-    marginTop: spacing.md,
     color: colors.darkGray,
   },
   infoCard: {
     marginBottom: spacing.md,
   },
   infoList: {
-    gap: spacing.md,
+    gap: spacing.sm,
+  },
+  infoDivider: {
+    borderBottomWidth: 1,
+    borderBottomColor: colors.border,
+    height: 1,
+    backgroundColor: "#eee",
+    marginVertical: 4,
   },
   infoItem: {
     flexDirection: "row",
@@ -489,9 +516,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.darkGray,
   },
-  editForm: {
-    gap: spacing.md,
-  },
+  editForm: {},
   notificationItem: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -511,7 +536,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: spacing.md,
+    paddingVertical: spacing.sm,
   },
   accountOptionLeft: {
     flexDirection: "row",
