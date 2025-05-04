@@ -25,7 +25,7 @@ export default function Home() {
       if (!hasCompletedOnboarding) {
         router.replace("/onboarding");
       }
-    }, 3000)
+    }, 3000);
 
     return () => clearTimeout(timer);
   }, [hasCompletedOnboarding]);
