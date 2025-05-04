@@ -12,7 +12,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { colors, spacing, borderRadius } from "@/constants/theme";
+import { colors, spacing, borderRadius, shadows } from "@/constants/theme";
 import { AntDesign, Feather, MaterialIcons } from "@expo/vector-icons";
 
 // Mock data for emergency alerts
@@ -149,7 +149,7 @@ export default function AlertsScreen() {
           onPress={() => router.back()}
           style={styles.backButton}
         >
-          <Feather name="arrow-left" size={24} color={colors.white} />
+          <Feather name="arrow-left" size={24} color={colors.darkGray} />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Live Alerts</Text>
         <View style={{ width: 24 }} />
@@ -161,7 +161,7 @@ export default function AlertsScreen() {
           style={styles.tabItem}
           onPress={() => router.replace("/police/dashboard")}
         >
-          <MaterialIcons name="dashboard" size={20} color={colors.white} />
+          <MaterialIcons name="dashboard" size={20} color={colors.darkGray} />
           <Text style={styles.tabText}>Map View</Text>
         </TouchableOpacity>
 
@@ -177,7 +177,7 @@ export default function AlertsScreen() {
           style={styles.tabItem}
           onPress={() => router.push("/police/history")}
         >
-          <Feather name="list" size={20} color={colors.white} />
+          <Feather name="list" size={20} color={colors.darkGray} />
           <Text style={styles.tabText}>History</Text>
         </TouchableOpacity>
       </View>
@@ -215,7 +215,11 @@ export default function AlertsScreen() {
                       </View>
                     </View>
                     <View style={styles.timestampContainer}>
-                      <Feather name="clock" size={14} color="#B0B0C0" />
+                      <Feather
+                        name="clock"
+                        size={14}
+                        color={colors.mediumGray}
+                      />
                       <Text style={styles.timestampText}>
                         {alert.timestamp}
                       </Text>
@@ -227,7 +231,7 @@ export default function AlertsScreen() {
                       <MaterialIcons
                         name="warning"
                         size={16}
-                        color={colors.white}
+                        color={colors.red}
                       />
                       <Text style={styles.detailText}>
                         {alert.emergencyType}
@@ -235,12 +239,16 @@ export default function AlertsScreen() {
                     </View>
 
                     <View style={styles.detailItem}>
-                      <Feather name="map-pin" size={16} color={colors.white} />
+                      <Feather
+                        name="map-pin"
+                        size={16}
+                        color={colors.darkGray}
+                      />
                       <Text style={styles.detailText}>{alert.location}</Text>
                     </View>
 
                     <View style={styles.detailItem}>
-                      <Feather name="clock" size={16} color={colors.white} />
+                      <Feather name="clock" size={16} color={colors.darkGray} />
                       <Text style={styles.detailText}>
                         ETA: {alert.eta} to {alert.destination}
                       </Text>
@@ -334,7 +342,11 @@ export default function AlertsScreen() {
                       </View>
                     </View>
                     <View style={styles.timestampContainer}>
-                      <Feather name="clock" size={14} color="#B0B0C0" />
+                      <Feather
+                        name="clock"
+                        size={14}
+                        color={colors.mediumGray}
+                      />
                       <Text style={styles.timestampText}>
                         {alert.timestamp}
                       </Text>
@@ -346,7 +358,7 @@ export default function AlertsScreen() {
                       <MaterialIcons
                         name="warning"
                         size={16}
-                        color={colors.white}
+                        color={colors.warning}
                       />
                       <Text style={styles.detailText}>
                         {alert.emergencyType}
@@ -354,12 +366,16 @@ export default function AlertsScreen() {
                     </View>
 
                     <View style={styles.detailItem}>
-                      <Feather name="map-pin" size={16} color={colors.white} />
+                      <Feather
+                        name="map-pin"
+                        size={16}
+                        color={colors.darkGray}
+                      />
                       <Text style={styles.detailText}>{alert.location}</Text>
                     </View>
 
                     <View style={styles.detailItem}>
-                      <Feather name="clock" size={16} color={colors.white} />
+                      <Feather name="clock" size={16} color={colors.darkGray} />
                       <Text style={styles.detailText}>
                         ETA: {alert.eta} to {alert.destination}
                       </Text>
@@ -453,7 +469,11 @@ export default function AlertsScreen() {
                       </View>
                     </View>
                     <View style={styles.timestampContainer}>
-                      <Feather name="clock" size={14} color="#B0B0C0" />
+                      <Feather
+                        name="clock"
+                        size={14}
+                        color={colors.mediumGray}
+                      />
                       <Text style={styles.timestampText}>
                         {alert.timestamp}
                       </Text>
@@ -465,7 +485,7 @@ export default function AlertsScreen() {
                       <MaterialIcons
                         name="warning"
                         size={16}
-                        color={colors.white}
+                        color={colors.darkGray}
                       />
                       <Text style={styles.detailText}>
                         {alert.emergencyType}
@@ -473,12 +493,16 @@ export default function AlertsScreen() {
                     </View>
 
                     <View style={styles.detailItem}>
-                      <Feather name="map-pin" size={16} color={colors.white} />
+                      <Feather
+                        name="map-pin"
+                        size={16}
+                        color={colors.darkGray}
+                      />
                       <Text style={styles.detailText}>{alert.location}</Text>
                     </View>
 
                     <View style={styles.detailItem}>
-                      <Feather name="clock" size={16} color={colors.white} />
+                      <Feather name="clock" size={16} color={colors.darkGray} />
                       <Text style={styles.detailText}>
                         ETA: {alert.eta} to {alert.destination}
                       </Text>
@@ -486,7 +510,11 @@ export default function AlertsScreen() {
                   </View>
 
                   <View style={styles.completedStatus}>
-                    <AntDesign name="checkcircle" size={18} color={colors.white} />
+                    <AntDesign
+                      name="checkcircle"
+                      size={18}
+                      color={colors.success}
+                    />
                     <Text style={styles.completedText}>
                       Route Cleared Successfully
                     </Text>
@@ -504,7 +532,7 @@ export default function AlertsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1E1E2E", // Dark background
+    backgroundColor: colors.lightGray,
   },
   header: {
     flexDirection: "row",
@@ -512,7 +540,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.md,
-    backgroundColor: "#252536", // Dark header
+    backgroundColor: colors.white,
+    ...shadows.sm,
   },
   backButton: {
     padding: spacing.xs,
@@ -520,14 +549,14 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: colors.white,
+    color: colors.darkGray,
   },
   tabBar: {
     flexDirection: "row",
-    backgroundColor: "#252536", // Dark tab bar
+    backgroundColor: colors.white,
     paddingVertical: spacing.xs,
     borderBottomWidth: 1,
-    borderBottomColor: "#353545",
+    borderBottomColor: colors.border,
   },
   tabItem: {
     flex: 1,
@@ -542,7 +571,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 14,
-    color: colors.white,
+    color: colors.mediumGray,
     marginLeft: spacing.xs,
   },
   activeTabText: {
@@ -565,24 +594,26 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 16,
     fontWeight: "600",
-    color: colors.white,
+    color: colors.darkGray,
     marginLeft: spacing.xs,
   },
   alertCard: {
     marginBottom: spacing.md,
     borderLeftWidth: 4,
+    backgroundColor: colors.white,
+    ...shadows.sm,
   },
   highPriorityCard: {
-    backgroundColor: "#3A2A2A", // Dark red background
     borderLeftColor: colors.red,
+    backgroundColor: "rgba(229, 57, 53, 0.05)",
   },
   mediumPriorityCard: {
-    backgroundColor: "#3A352A", // Dark yellow background
     borderLeftColor: colors.warning,
+    backgroundColor: "rgba(255, 152, 0, 0.05)",
   },
   completedCard: {
-    backgroundColor: "#2A3A2A", // Dark green background
     borderLeftColor: colors.success,
+    backgroundColor: "rgba(76, 175, 80, 0.05)",
   },
   alertHeader: {
     flexDirection: "row",
@@ -597,7 +628,7 @@ const styles = StyleSheet.create({
   ambulanceId: {
     fontSize: 16,
     fontWeight: "600",
-    color: colors.white,
+    color: colors.darkGray,
     marginRight: spacing.sm,
   },
   statusBadge: {
@@ -616,7 +647,7 @@ const styles = StyleSheet.create({
   },
   timestampText: {
     fontSize: 12,
-    color: "#B0B0C0",
+    color: colors.mediumGray,
     marginLeft: 4,
   },
   alertDetails: {
@@ -629,7 +660,7 @@ const styles = StyleSheet.create({
   },
   detailText: {
     fontSize: 14,
-    color: colors.white,
+    color: colors.darkGray,
     marginLeft: spacing.sm,
   },
   actionButtons: {
@@ -671,12 +702,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "rgba(76, 175, 80, 0.2)",
+    backgroundColor: "rgba(76, 175, 80, 0.1)",
     paddingVertical: spacing.sm,
     borderRadius: borderRadius.md,
   },
   completedText: {
-    color: colors.white,
+    color: colors.success,
     marginLeft: spacing.xs,
     fontWeight: "500",
   },

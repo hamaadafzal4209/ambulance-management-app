@@ -4,7 +4,12 @@ import { useAuth } from "@/components/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { borderRadius, colors, shadows, spacing } from "@/constants/theme";
-import { Feather, FontAwesome5, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import {
+  Feather,
+  FontAwesome5,
+  Ionicons,
+  MaterialIcons,
+} from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -166,11 +171,12 @@ export default function HospitalDashboard() {
           </Text>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => router.push("/hospital/notifications")}
-          >
-            <Ionicons name="notifications-outline" size={22} color={colors.darkGray} />
+          <TouchableOpacity style={styles.iconButton}>
+            <Ionicons
+              name="notifications-outline"
+              size={22}
+              color={colors.darkGray}
+            />
             {notificationCount > 0 && (
               <View style={styles.notificationBadge}>
                 <Text style={styles.notificationBadgeText}>
@@ -179,14 +185,11 @@ export default function HospitalDashboard() {
               </View>
             )}
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconButton}
-            onPress={() => router.push("/hospital/settings")}
-          >
-            <Feather name="settings"     size={22} color={colors.darkGray} />
+          <TouchableOpacity style={styles.iconButton}>
+            <Feather name="settings" size={22} color={colors.darkGray} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton} onPress={() => signOut()}>
-            <Feather name="log-out"      size={22} color={colors.darkGray} />
+            <Feather name="log-out" size={22} color={colors.danger} />
           </TouchableOpacity>
         </View>
       </View>
@@ -222,7 +225,7 @@ export default function HospitalDashboard() {
           style={[styles.tabItem, styles.activeTab]}
           onPress={() => {}}
         >
-          <MaterialIcons name="dashboard"   size={20} color={colors.blue} />
+          <MaterialIcons name="dashboard" size={20} color={colors.blue} />
           <Text style={[styles.tabText, styles.activeTabText]}>Dashboard</Text>
         </TouchableOpacity>
 
@@ -230,7 +233,11 @@ export default function HospitalDashboard() {
           style={styles.tabItem}
           onPress={() => router.push("/hospital/real-time-updates")}
         >
-          <MaterialIcons name="monitor-heart" size={20} color={colors.mediumGray} />
+          <MaterialIcons
+            name="monitor-heart"
+            size={20}
+            color={colors.mediumGray}
+          />
           <Text style={styles.tabText}>Real-Time</Text>
         </TouchableOpacity>
 
@@ -306,7 +313,7 @@ export default function HospitalDashboard() {
                   </View>
                 </View>
                 <View style={styles.etaContainer}>
-                  <Feather name='clock' size={14} color={colors.mediumGray} />
+                  <Feather name="clock" size={14} color={colors.mediumGray} />
                   <Text style={styles.etaText}>ETA: {ambulance.eta}</Text>
                 </View>
               </View>
@@ -316,7 +323,11 @@ export default function HospitalDashboard() {
               <View style={styles.ambulanceDetails}>
                 <View style={styles.detailRow}>
                   <View style={styles.detailItem}>
-                    <MaterialIcons name="warning" size={16} color={colors.mediumGray} />
+                    <MaterialIcons
+                      name="warning"
+                      size={16}
+                      color={colors.mediumGray}
+                    />
                     <Text style={styles.detailText}>
                       {ambulance.emergencyType}
                     </Text>
@@ -331,21 +342,30 @@ export default function HospitalDashboard() {
 
                 <View style={styles.vitalsContainer}>
                   <View style={styles.vitalItem}>
-                    <FontAwesome5 name="heartbeat" size={16} color={colors.red} />
+                    <FontAwesome5
+                      name="heartbeat"
+                      size={16}
+                      color={colors.red}
+                    />
                     <Text style={styles.vitalValue}>
                       {ambulance.vitals.heartRate}
                     </Text>
                     <Text style={styles.vitalLabel}>BPM</Text>
                   </View>
                   <View style={styles.vitalItem}>
-                    <MaterialIcons name="monitor-heart" size={16} color={colors.blue} />
+                    <MaterialIcons
+                      name="monitor-heart"
+                      size={16}
+                      color={colors.blue}
+                    />
                     <Text style={styles.vitalValue}>
                       {ambulance.vitals.bloodPressure}
                     </Text>
                     <Text style={styles.vitalLabel}>BP</Text>
                   </View>
                   <View style={styles.vitalItem}>
-                    <MaterialIcons name="warning"   
+                    <MaterialIcons
+                      name="warning"
                       size={16}
                       color={
                         ambulance.vitals.oxygenLevel < 95

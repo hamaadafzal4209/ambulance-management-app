@@ -20,11 +20,11 @@ export default function UserDashboard() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+      <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Dashboard</Text>
-        <TouchableOpacity onPress={() => signOut()}>
-          <Text style={styles.signOutText}>Sign Out</Text>
+        <TouchableOpacity style={styles.iconButton} onPress={() => signOut()}>
+          <Feather name="log-out" size={22} color={colors.danger} />
         </TouchableOpacity>
       </View>
 
@@ -189,6 +189,11 @@ const styles = StyleSheet.create({
   welcomeContent: {
     flexDirection: "row",
     alignItems: "center",
+  },
+  iconButton: {
+    padding: spacing.sm,
+    marginLeft: spacing.sm,
+    position: "relative",
   },
   welcomeIcon: {
     width: 40,

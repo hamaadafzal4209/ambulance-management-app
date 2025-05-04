@@ -175,6 +175,7 @@ export default function PoliceDashboard() {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
         <View style={styles.headerLeft}>
           <Text style={styles.policeName}>
@@ -185,12 +186,11 @@ export default function PoliceDashboard() {
         <View style={styles.headerRight}>
           <TouchableOpacity
             style={styles.iconButton}
-            onPress={() => router.push("/police/notifications")}
           >
             <Ionicons
               name="notifications-outline"
               size={22}
-              color={colors.white}
+              color={colors.darkGray}
             />
             {notificationCount > 0 && (
               <View style={styles.notificationBadge}>
@@ -202,12 +202,11 @@ export default function PoliceDashboard() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.iconButton}
-            onPress={() => router.push("/police/settings")}
           >
-            <Feather name="settings" size={22} color={colors.white} />
+            <Feather name="settings" size={22} color={colors.darkGray} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton} onPress={() => signOut()}>
-            <Feather name="log-out" size={22} color={colors.white} />
+            <Feather name="log-out" size={22} color={colors.danger} />
           </TouchableOpacity>
         </View>
       </View>
@@ -251,7 +250,7 @@ export default function PoliceDashboard() {
           style={styles.tabItem}
           onPress={() => router.push("/police/alerts")}
         >
-          <MaterialIcons name="warning" size={20} color={colors.white} />
+          <MaterialIcons name="warning" size={20} color={colors.darkGray} />
           <Text style={styles.tabText}>Alerts</Text>
         </TouchableOpacity>
 
@@ -259,14 +258,16 @@ export default function PoliceDashboard() {
           style={styles.tabItem}
           onPress={() => router.push("/police/history")}
         >
-          <Feather name="list" size={20} color={colors.white} />
+          <Feather name="list" size={20} color={colors.darkGray} />
           <Text style={styles.tabText}>History</Text>
         </TouchableOpacity>
       </View>
 
-      <View style={styles.content}>
-        {/* <View style={styles.mapContainer}>
-          <CustomMapView
+      <ScrollView>
+        <View style={styles.content}>
+          {/* Map Section */}
+          <View style={styles.mapContainer}>
+            {/* <CustomMapView
             style={styles.map}
             markers={[
               {
@@ -302,157 +303,157 @@ export default function PoliceDashboard() {
               latitudeDelta: 0.02,
               longitudeDelta: 0.02,
             }}
-          />
+          /> */}
 
-          <View style={styles.mapOverlay}>
-            <View style={styles.mapOverlayContent}>
-              <Text style={styles.mapOverlayTitle}>
-                Ambulance #{selectedRoute.ambulanceId}
-              </Text>
-              <View style={styles.mapOverlayDetail}>
-                <Feather name="clock" size={14} color={colors.white} />
-                <Text style={styles.mapOverlayText}>
-                  ETA: {selectedRoute.eta}
+            {/* Map overlay with route info */}
+            <View style={styles.mapOverlay}>
+              <View style={styles.mapOverlayContent}>
+                <Text style={styles.mapOverlayTitle}>
+                  Ambulance #{selectedRoute.ambulanceId}
                 </Text>
-              </View>
-              <View style={styles.mapOverlayDetail}>
-                <Feather name="map-pin" size={14} color={colors.white} />
-                <Text style={styles.mapOverlayText}>
-                  To: {selectedRoute.destination.name}
-                </Text>
-              </View>
-              <View style={styles.mapOverlayStatus}>
-                <Text style={styles.mapOverlayStatusText}>
-                  {selectedRoute.signalsClear
-                    ? "Signals Cleared"
-                    : "Signals Pending"}
-                </Text>
+                <View style={styles.mapOverlayDetail}>
+                  <Feather name="clock" size={14} color={colors.darkGray} />
+                  <Text style={styles.mapOverlayText}>
+                    ETA: {selectedRoute.eta}
+                  </Text>
+                </View>
+                <View style={styles.mapOverlayDetail}>
+                  <Feather name="map-pin" size={14} color={colors.darkGray} />
+                  <Text style={styles.mapOverlayText}>
+                    To: {selectedRoute.destination.name}
+                  </Text>
+                </View>
+                <View style={styles.mapOverlayStatus}>
+                  <Text style={styles.mapOverlayStatusText}>
+                    {selectedRoute.signalsClear
+                      ? "Signals Cleared"
+                      : "Signals Pending"}
+                  </Text>
+                </View>
               </View>
             </View>
           </View>
-        </View> */}
 
-        {/* Emergency Routes Section */}
-        <Text style={styles.sectionTitle}>Active Emergency Routes</Text>
+          {/* Emergency Routes Section */}
+          <Text style={styles.sectionTitle}>Active Emergency Routes</Text>
 
-          <ScrollView showsVerticalScrollIndicator={false}>
-        {emergencyRoutes.map((route) => (
-          <Card
-            key={route.id}
-            style={[
-              styles.routeCard,
-              route.isNew && styles.newRouteCard,
-              selectedRoute.id === route.id && styles.selectedRouteCard,
-            ]}
-          >
-            <CardContent>
-              <TouchableOpacity
-                style={styles.routeHeader}
-                onPress={() => setSelectedRoute(route)}
-              >
-                <View style={styles.routeHeaderLeft}>
-                  <View
-                    style={[
-                      styles.statusIndicator,
-                      {
-                        backgroundColor: route.signalsClear
-                          ? colors.success
-                          : colors.warning,
-                      },
-                    ]}
-                  />
-                  <View>
-                    <Text style={styles.ambulanceId}>
-                      Ambulance #{route.ambulanceId}
-                    </Text>
-                    <Text style={styles.emergencyType}>
-                      {route.emergencyType}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.etaContainer}>
-                  <Feather name="clock" size={14} color={colors.white} />
-                  <Text style={styles.etaText}>ETA: {route.eta}</Text>
-                </View>
-              </TouchableOpacity>
-
-              <View style={styles.routeDetails}>
-                <View style={styles.detailItem}>
-                  <Feather name="map-pin" size={16} color={colors.lightGray} />
-                  <Text style={styles.detailText}>
-                    To: {route.destination.name}
-                  </Text>
-                </View>
-
-                {route.congestionPoints.length > 0 && (
-                  <View style={styles.congestionAlert}>
-                    <MaterialIcons
-                      name="warning"
-                      size={16}
-                      color={colors.warning}
+          {emergencyRoutes.map((route) => (
+            <Card
+              key={route.id}
+              style={[
+                styles.routeCard,
+                route.isNew && styles.newRouteCard,
+                selectedRoute.id === route.id && styles.selectedRouteCard,
+              ]}
+            >
+              <CardContent>
+                <TouchableOpacity
+                  style={styles.routeHeader}
+                  onPress={() => setSelectedRoute(route)}
+                >
+                  <View style={styles.routeHeaderLeft}>
+                    <View
+                      style={[
+                        styles.statusIndicator,
+                        {
+                          backgroundColor: route.signalsClear
+                            ? colors.success
+                            : colors.warning,
+                        },
+                      ]}
                     />
-                    <Text style={styles.congestionText}>
-                      {route.congestionPoints.length} congestion point
-                      {route.congestionPoints.length > 1 ? "s" : ""} detected
+                    <View>
+                      <Text style={styles.ambulanceId}>
+                        Ambulance #{route.ambulanceId}
+                      </Text>
+                      <Text style={styles.emergencyType}>
+                        {route.emergencyType}
+                      </Text>
+                    </View>
+                  </View>
+                  <View style={styles.etaContainer}>
+                    <Feather name="clock" size={14} color={colors.darkGray} />
+                    <Text style={styles.etaText}>ETA: {route.eta}</Text>
+                  </View>
+                </TouchableOpacity>
+
+                <View style={styles.routeDetails}>
+                  <View style={styles.detailItem}>
+                    <Feather name="map-pin" size={16} color={colors.darkGray} />
+                    <Text style={styles.detailText}>
+                      To: {route.destination.name}
                     </Text>
                   </View>
-                )}
-              </View>
 
-              <View style={styles.actionButtons}>
-                <Button
-                  variant={route.isAcknowledged ? "outline" : "primary"}
-                  style={[
-                    styles.actionButton,
-                    route.isAcknowledged ? styles.acknowledgedButton : null,
-                  ]}
-                  onPress={() => handleAcknowledge(route.id)}
-                  disabled={route.isAcknowledged}
-                >
-                  <Text
+                  {route.congestionPoints.length > 0 && (
+                    <View style={styles.congestionAlert}>
+                      <MaterialIcons
+                        name="warning"
+                        size={16}
+                        color={colors.warning}
+                      />
+                      <Text style={styles.congestionText}>
+                        {route.congestionPoints.length} congestion point
+                        {route.congestionPoints.length > 1 ? "s" : ""} detected
+                      </Text>
+                    </View>
+                  )}
+                </View>
+
+                <View style={styles.actionButtons}>
+                  <Button
+                    variant={route.isAcknowledged ? "outline" : "primary"}
                     style={[
-                      styles.actionButtonText,
-                      route.isAcknowledged
-                        ? styles.acknowledgedButtonText
-                        : null,
+                      styles.actionButton,
+                      route.isAcknowledged ? styles.acknowledgedButton : null,
                     ]}
+                    onPress={() => handleAcknowledge(route.id)}
+                    disabled={route.isAcknowledged}
                   >
-                    {route.isAcknowledged ? "Acknowledged" : "Acknowledge"}
-                  </Text>
-                </Button>
+                    <Text
+                      style={[
+                        styles.actionButtonText,
+                        route.isAcknowledged
+                          ? styles.acknowledgedButtonText
+                          : null,
+                      ]}
+                    >
+                      {route.isAcknowledged ? "Acknowledged" : "Acknowledge"}
+                    </Text>
+                  </Button>
 
-                <Button
-                  variant={route.signalsClear ? "outline" : "primary"}
-                  style={[
-                    styles.actionButton,
-                    styles.clearButton,
-                    route.signalsClear ? styles.clearedButton : null,
-                  ]}
-                  onPress={() => handleClearRoute(route.id)}
-                  disabled={route.signalsClear}
-                >
-                  <Text
+                  <Button
+                    variant={route.signalsClear ? "outline" : "primary"}
                     style={[
-                      styles.actionButtonText,
-                      route.signalsClear ? styles.clearedButtonText : null,
+                      styles.actionButton,
+                      styles.clearButton,
+                      route.signalsClear ? styles.clearedButton : null,
                     ]}
+                    onPress={() => handleClearRoute(route.id)}
+                    disabled={route.signalsClear}
                   >
-                    {route.signalsClear ? "Signals Cleared" : "Clear Signals"}
-                  </Text>
-                </Button>
+                    <Text
+                      style={[
+                        styles.actionButtonText,
+                        route.signalsClear ? styles.clearedButtonText : null,
+                      ]}
+                    >
+                      {route.signalsClear ? "Signals Cleared" : "Clear Signals"}
+                    </Text>
+                  </Button>
 
-                <Button
-                  style={[styles.actionButton, styles.completeButton]}
-                  onPress={() => handleMarkComplete(route.id)}
-                >
-                  <Text style={styles.actionButtonText}>Complete</Text>
-                </Button>
-              </View>
-            </CardContent>
-          </Card>
-        ))}
-          </ScrollView>
-      </View>
+                  <Button
+                    style={[styles.actionButton, styles.completeButton]}
+                    onPress={() => handleMarkComplete(route.id)}
+                  >
+                    <Text style={styles.actionButtonText}>Complete</Text>
+                  </Button>
+                </View>
+              </CardContent>
+            </Card>
+          ))}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -460,7 +461,7 @@ export default function PoliceDashboard() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#1E1E2E", // Dark theme background
+    backgroundColor: colors.lightGray,
   },
   header: {
     flexDirection: "row",
@@ -468,9 +469,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.md,
-    backgroundColor: "#2A2A3C", // Dark header
+    backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderBottomColor: "#3A3A4C",
+    borderBottomColor: colors.border,
     ...shadows.sm,
   },
   headerLeft: {
@@ -479,11 +480,11 @@ const styles = StyleSheet.create({
   policeName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: colors.white,
+    color: colors.darkGray,
   },
   headerSubtitle: {
     fontSize: 12,
-    color: "#B0B0C0", // Light gray
+    color: colors.mediumGray,
   },
   headerRight: {
     flexDirection: "row",
@@ -531,10 +532,10 @@ const styles = StyleSheet.create({
   },
   tabBar: {
     flexDirection: "row",
-    backgroundColor: "#2A2A3C", // Dark tab bar
+    backgroundColor: colors.white,
     paddingVertical: spacing.xs,
     borderBottomWidth: 1,
-    borderBottomColor: "#3A3A4C",
+    borderBottomColor: colors.border,
   },
   tabItem: {
     flex: 1,
@@ -549,7 +550,7 @@ const styles = StyleSheet.create({
   },
   tabText: {
     fontSize: 14,
-    color: colors.white,
+    color: colors.mediumGray,
     marginLeft: spacing.xs,
   },
   activeTabText: {
@@ -566,6 +567,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     marginBottom: spacing.md,
     position: "relative",
+    ...shadows.md,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -575,9 +577,10 @@ const styles = StyleSheet.create({
     bottom: spacing.md,
     left: spacing.md,
     right: spacing.md,
-    backgroundColor: "rgba(42, 42, 60, 0.8)", // Semi-transparent dark
+    backgroundColor: "rgba(255, 255, 255, 0.9)",
     borderRadius: borderRadius.md,
     padding: spacing.sm,
+    ...shadows.sm,
   },
   mapOverlayContent: {
     padding: spacing.xs,
@@ -585,7 +588,7 @@ const styles = StyleSheet.create({
   mapOverlayTitle: {
     fontSize: 16,
     fontWeight: "bold",
-    color: colors.white,
+    color: colors.darkGray,
     marginBottom: spacing.xs,
   },
   mapOverlayDetail: {
@@ -595,12 +598,12 @@ const styles = StyleSheet.create({
   },
   mapOverlayText: {
     fontSize: 14,
-    color: colors.white,
+    color: colors.darkGray,
     marginLeft: spacing.xs,
   },
   mapOverlayStatus: {
     marginTop: spacing.xs,
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
+    backgroundColor: colors.lightGray,
     paddingVertical: 2,
     paddingHorizontal: spacing.sm,
     borderRadius: borderRadius.sm,
@@ -608,24 +611,25 @@ const styles = StyleSheet.create({
   },
   mapOverlayStatusText: {
     fontSize: 12,
-    color: colors.white,
+    color: colors.darkGray,
     fontWeight: "500",
   },
   sectionTitle: {
     fontSize: 18,
     fontWeight: "600",
     marginBottom: spacing.sm,
-    color: colors.white,
+    color: colors.darkGray,
   },
   routeCard: {
     marginBottom: spacing.md,
-    backgroundColor: "#2A2A3C", // Dark card
+    backgroundColor: colors.white,
     borderLeftWidth: 4,
     borderLeftColor: colors.blue,
+    ...shadows.sm,
   },
   newRouteCard: {
     borderLeftColor: colors.red,
-    backgroundColor: "rgba(229, 57, 53, 0.2)", // Semi-transparent red
+    backgroundColor: "rgba(229, 57, 53, 0.05)",
   },
   selectedRouteCard: {
     borderWidth: 2,
@@ -650,23 +654,23 @@ const styles = StyleSheet.create({
   ambulanceId: {
     fontSize: 16,
     fontWeight: "600",
-    color: colors.white,
+    color: colors.darkGray,
   },
   emergencyType: {
     fontSize: 14,
-    color: "#B0B0C0", // Light gray
+    color: colors.mediumGray,
   },
   etaContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255, 255, 255, 0.1)", // Semi-transparent white
+    backgroundColor: colors.lightGray,
     paddingHorizontal: spacing.sm,
     paddingVertical: 4,
     borderRadius: borderRadius.sm,
   },
   etaText: {
     fontSize: 12,
-    color: colors.white,
+    color: colors.darkGray,
     marginLeft: 4,
     fontWeight: "500",
   },
@@ -681,12 +685,12 @@ const styles = StyleSheet.create({
   detailText: {
     marginLeft: spacing.xs,
     fontSize: 14,
-    color: colors.white,
+    color: colors.darkGray,
   },
   congestionAlert: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "rgba(255, 152, 0, 0.2)", // Semi-transparent warning
+    backgroundColor: "rgba(255, 152, 0, 0.1)",
     paddingHorizontal: spacing.sm,
     paddingVertical: 4,
     borderRadius: borderRadius.sm,

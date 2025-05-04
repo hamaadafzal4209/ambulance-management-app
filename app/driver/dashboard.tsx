@@ -53,9 +53,9 @@ export default function DriverDashboard() {
         <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Driver Dashboard</Text>
-        <TouchableOpacity onPress={() => signOut()}>
-          <Text style={styles.signOutText}>Sign Out</Text>
-        </TouchableOpacity>
+         <TouchableOpacity onPress={() => signOut()}>
+                <Feather name="log-out" size={22} color={colors.danger} />
+              </TouchableOpacity>
       </View>
 
       <ScrollView
