@@ -1,5 +1,6 @@
 "use client";
 
+import AlertsMap from "@/components/common/AlertsMap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { colors, spacing } from "@/constants/theme";
@@ -10,6 +11,7 @@ import {
 } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useEffect, useState } from "react";
+import { Platform } from "react-native";
 import {
   ScrollView,
   StyleSheet,
@@ -17,6 +19,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import MapView from "react-native-maps";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function TrackingScreen() {
@@ -66,14 +69,6 @@ export default function TrackingScreen() {
     return () => clearInterval(interval);
   }, [ambulanceLocation, userLocation]);
 
-  // Calculate route
-  const route = [
-    ambulanceLocation,
-    { latitude: 37.785, longitude: -122.434 },
-    { latitude: 37.787, longitude: -122.433 },
-    userLocation,
-  ];
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -86,36 +81,6 @@ export default function TrackingScreen() {
         <Text style={styles.headerTitle}>Ambulance Tracking</Text>
         <View style={styles.placeholder} />
       </View>
-
-      {/* {Platform.OS !== "web" && (
-        <View style={styles.mapContainer}>
-          <CustomMapView
-            markers={[
-              {
-                id: "user",
-                coordinate: userLocation,
-                title: "Your Location",
-                type: "user",
-              },
-              {
-                id: "ambulance",
-                coordinate: ambulanceLocation,
-                title: "Ambulance",
-                type: "ambulance",
-              },
-            ]}
-            route={route}
-            initialRegion={{
-              latitude:
-                (userLocation.latitude + ambulanceLocation.latitude) / 2,
-              longitude:
-                (userLocation.longitude + ambulanceLocation.longitude) / 2,
-              latitudeDelta: 0.02,
-              longitudeDelta: 0.02,
-            }}
-          />
-        </View>
-      )} */}
 
       <ScrollView style={styles.content}>
         <Card style={styles.statusCard}>
@@ -163,6 +128,12 @@ export default function TrackingScreen() {
             </View>
           </CardContent>
         </Card>
+
+        {Platform.OS !== "web" && (
+          <View style={styles.mapContainer}>
+            <AlertsMap />
+          </View>
+        )}
 
         <Text style={styles.sectionTitle}>Emergency Details</Text>
 
@@ -236,7 +207,7 @@ const styles = StyleSheet.create({
     width: 24,
   },
   mapContainer: {
-    height: 250,
+    height: 200,
   },
   content: {
     flex: 1,

@@ -12,9 +12,10 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { CustomMapView } from "@/components/ui/map-view";
 import { colors, spacing } from "@/constants/theme";
 import { Ionicons, Feather } from "@expo/vector-icons";
+import { Platform } from "react-native";
+import AlertsMap from "@/components/common/AlertsMap";
 
 export default function DriverNavigation() {
   const [driverLocation, setDriverLocation] = useState({
@@ -139,40 +140,7 @@ export default function DriverNavigation() {
         <View style={styles.placeholder} />
       </View>
 
-      {/* <View style={styles.mapContainer}>
-        <CustomMapView
-          markers={[
-            {
-              id: "driver",
-              coordinate: driverLocation,
-              title: "Your Location",
-              type: "ambulance",
-            },
-            {
-              id: "patient",
-              coordinate: patientLocation,
-              title: "Patient Location",
-              type: "user",
-            },
-            {
-              id: "hospital",
-              coordinate: hospitalLocation,
-              title: "Hospital",
-              type: "hospital",
-            },
-          ]}
-          route={route}
-          initialRegion={{
-            latitude: (driverLocation.latitude + patientLocation.latitude) / 2,
-            longitude:
-              (driverLocation.longitude + patientLocation.longitude) / 2,
-            latitudeDelta: 0.02,
-            longitudeDelta: 0.02,
-          }}
-        />
-      </View> */}
-
-      <ScrollView   showsVerticalScrollIndicator={false}  style={styles.content}>
+      <ScrollView showsVerticalScrollIndicator={false} style={styles.content}>
         <Card style={styles.statusCard}>
           <CardContent>
             <View style={styles.statusContainer}>
@@ -187,6 +155,12 @@ export default function DriverNavigation() {
             </View>
           </CardContent>
         </Card>
+
+        {Platform.OS !== "web" && (
+        <View style={styles.mapContainer}>
+          <AlertsMap />
+        </View>
+      )}
 
         <Text style={styles.sectionTitle}>Patient Information</Text>
 
@@ -307,7 +281,7 @@ const styles = StyleSheet.create({
     width: 24,
   },
   mapContainer: {
-    height: 300,
+    // height: 300,
   },
   content: {
     flex: 1,

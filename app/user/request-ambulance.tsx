@@ -1,22 +1,24 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dropdown } from "@/components/ui/dropdown";
 import { Input } from "@/components/ui/input";
 import { NumericInput } from "@/components/ui/numeric-input";
 import { Toggle } from "@/components/ui/toggle";
-import { Dropdown } from "@/components/ui/dropdown";
-import { CustomMapView } from "@/components/ui/map-view";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
+import {
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+
+import AlertsMap from "@/components/common/AlertsMap";
 import { colors, spacing } from "@/constants/theme";
 import { Feather, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
@@ -206,36 +208,19 @@ export default function RequestAmbulance() {
     <View style={styles.stepContainer}>
       <Text style={styles.stepTitle}>Confirm Your Location</Text>
       <Text style={styles.stepDescription}>
-        We'll send an ambulance to this location. Please confirm or adjust if
-        needed.
+        {
+          " We'll send an ambulance to this location. Please confirm or adjust if needed."
+        }
       </Text>
 
-      {/* <View style={styles.mapContainer}>
-        {location ? (
-          <CustomMapView
-            markers={[
-              {
-                id: "1",
-                coordinate: location,
-                title: "Your Location",
-                type: "user",
-              },
-            ]}
-            initialRegion={{
-              ...location,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
-          />
-        ) : (
-          <View style={styles.loadingMap}>
-            <Text>Loading map...</Text>
-          </View>
-        )}
-      </View> */}
+      {Platform.OS !== "web" && (
+        <View style={styles.mapContainer}>
+          <AlertsMap />
+        </View>
+      )}
 
       <View style={styles.locationInfo}>
-      <Feather name="map-pin" size={20} color={colors.blue} />
+        <Feather name="map-pin" size={20} color={colors.blue} />
         <Text style={styles.locationText}>
           {address || "Detecting your location..."}
         </Text>
@@ -748,7 +733,7 @@ export default function RequestAmbulance() {
       </Card>
 
       <View style={styles.disclaimerContainer}>
-      <Feather name="alert-triangle" size={20} color={colors.warning} />
+        <Feather name="alert-triangle" size={20} color={colors.warning} />
         <Text style={styles.disclaimerText}>
           By submitting this request, you confirm this is a genuine emergency
           requiring immediate medical assistance.
@@ -761,7 +746,7 @@ export default function RequestAmbulance() {
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={handleBack} style={styles.backButton}>
-        <Feather name="arrow-left" size={24} color={colors.darkGray} />
+          <Feather name="arrow-left" size={24} color={colors.darkGray} />
         </TouchableOpacity>
         <View style={styles.stepIndicator}>
           {[1, 2, 3].map((step) => (
@@ -864,13 +849,11 @@ const styles = StyleSheet.create({
   stepDescription: {
     fontSize: 16,
     color: colors.mediumGray,
-    marginBottom: spacing.md,
+    // marginBottom: spacing.md,
   },
   mapContainer: {
     height: 200,
     borderRadius: 12,
-    overflow: "hidden",
-    marginBottom: spacing.md,
   },
   loadingMap: {
     height: 200,

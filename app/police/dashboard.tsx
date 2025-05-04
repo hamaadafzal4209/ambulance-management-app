@@ -1,22 +1,23 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { router } from "expo-router";
+import { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   Animated,
+  Platform,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { router } from "expo-router";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { CustomMapView } from "@/components/ui/map-view";
-import { colors, spacing, borderRadius, shadows } from "@/constants/theme";
 import { useAuth } from "@/components/auth-provider";
+import { borderRadius, colors, shadows, spacing } from "@/constants/theme";
 import { Feather, Ionicons, MaterialIcons } from "@expo/vector-icons";
+import AlertsMap from "@/components/common/AlertsMap";
 
 // Mock data for emergency routes
 const mockEmergencyRoutes = [
@@ -184,9 +185,7 @@ export default function PoliceDashboard() {
           <Text style={styles.headerSubtitle}>Emergency Route Management</Text>
         </View>
         <View style={styles.headerRight}>
-          <TouchableOpacity
-            style={styles.iconButton}
-          >
+          <TouchableOpacity style={styles.iconButton}>
             <Ionicons
               name="notifications-outline"
               size={22}
@@ -200,9 +199,7 @@ export default function PoliceDashboard() {
               </View>
             )}
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.iconButton}
-          >
+          <TouchableOpacity style={styles.iconButton}>
             <Feather name="settings" size={22} color={colors.darkGray} />
           </TouchableOpacity>
           <TouchableOpacity style={styles.iconButton} onPress={() => signOut()}>
@@ -266,73 +263,11 @@ export default function PoliceDashboard() {
       <ScrollView>
         <View style={styles.content}>
           {/* Map Section */}
-          <View style={styles.mapContainer}>
-            {/* <CustomMapView
-            style={styles.map}
-            markers={[
-              {
-                id: "police",
-                coordinate: policeLocation,
-                title: "Police HQ",
-                type: "police",
-              },
-              {
-                id: `ambulance-${selectedRoute.id}`,
-                coordinate: selectedRoute.location,
-                title: `Ambulance ${selectedRoute.ambulanceId}`,
-                type: "ambulance",
-              },
-              {
-                id: `hospital-${selectedRoute.id}`,
-                coordinate: selectedRoute.destination,
-                title: selectedRoute.destination.name,
-                type: "hospital",
-              },
-              ...getCongestionMarkers(),
-            ]}
-            route={selectedRoute.route}
-            initialRegion={{
-              latitude:
-                (selectedRoute.location.latitude +
-                  selectedRoute.destination.latitude) /
-                2,
-              longitude:
-                (selectedRoute.location.longitude +
-                  selectedRoute.destination.longitude) /
-                2,
-              latitudeDelta: 0.02,
-              longitudeDelta: 0.02,
-            }}
-          /> */}
-
-            {/* Map overlay with route info */}
-            <View style={styles.mapOverlay}>
-              <View style={styles.mapOverlayContent}>
-                <Text style={styles.mapOverlayTitle}>
-                  Ambulance #{selectedRoute.ambulanceId}
-                </Text>
-                <View style={styles.mapOverlayDetail}>
-                  <Feather name="clock" size={14} color={colors.darkGray} />
-                  <Text style={styles.mapOverlayText}>
-                    ETA: {selectedRoute.eta}
-                  </Text>
-                </View>
-                <View style={styles.mapOverlayDetail}>
-                  <Feather name="map-pin" size={14} color={colors.darkGray} />
-                  <Text style={styles.mapOverlayText}>
-                    To: {selectedRoute.destination.name}
-                  </Text>
-                </View>
-                <View style={styles.mapOverlayStatus}>
-                  <Text style={styles.mapOverlayStatusText}>
-                    {selectedRoute.signalsClear
-                      ? "Signals Cleared"
-                      : "Signals Pending"}
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
+            {Platform.OS !== "web" && (
+                 <View style={styles.mapContainer}>
+                   <AlertsMap />
+                 </View>
+               )}
 
           {/* Emergency Routes Section */}
           <Text style={styles.sectionTitle}>Active Emergency Routes</Text>
@@ -562,12 +497,8 @@ const styles = StyleSheet.create({
     padding: spacing.md,
   },
   mapContainer: {
-    height: 300,
+    height: 200,
     borderRadius: borderRadius.lg,
-    overflow: "hidden",
-    marginBottom: spacing.md,
-    position: "relative",
-    ...shadows.md,
   },
   map: {
     ...StyleSheet.absoluteFillObject,

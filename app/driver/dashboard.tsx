@@ -8,16 +8,17 @@ import {
   ScrollView,
   TouchableOpacity,
   Switch,
-  StatusBar
+  StatusBar,
+  Platform,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { CustomMapView } from "@/components/ui/map-view";
 import { colors, spacing } from "@/constants/theme";
 import { useAuth } from "@/components/auth-provider";
 import { MaterialIcons, Feather, FontAwesome } from "@expo/vector-icons";
+import AlertsMap from "@/components/common/AlertsMap";
 
 export default function DriverDashboard() {
   const { user, signOut } = useAuth();
@@ -50,16 +51,16 @@ export default function DriverDashboard() {
 
   return (
     <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor={'white'} barStyle={'dark-content'} />
+      <StatusBar backgroundColor={"white"} barStyle={"dark-content"} />
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Driver Dashboard</Text>
-         <TouchableOpacity onPress={() => signOut()}>
-                <Feather name="log-out" size={22} color={colors.danger} />
-              </TouchableOpacity>
+        <TouchableOpacity onPress={() => signOut()}>
+          <Feather name="log-out" size={22} color={colors.danger} />
+        </TouchableOpacity>
       </View>
 
       <ScrollView
-      showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         style={styles.content}
         contentContainerStyle={styles.contentContainer}
       >
@@ -87,25 +88,11 @@ export default function DriverDashboard() {
           </CardContent>
         </Card>
 
-        {/* <View style={styles.mapContainer}>
-          <Text style={styles.sectionTitle}>Your Location</Text>
-          <CustomMapView
-            style={styles.map}
-            markers={[
-              {
-                id: "driver",
-                coordinate: currentLocation,
-                title: "Your Location",
-                type: "ambulance",
-              },
-            ]}
-            initialRegion={{
-              ...currentLocation,
-              latitudeDelta: 0.01,
-              longitudeDelta: 0.01,
-            }}
-          />
-        </View> */}
+        {Platform.OS !== "web" && (
+          <View style={styles.mapContainer}>
+            <AlertsMap />
+          </View>
+        )}
 
         <Text style={styles.sectionTitle}>Emergency Requests</Text>
 

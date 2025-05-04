@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "@/components/auth-provider";
+import AlertsMap from "@/components/common/AlertsMap";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { borderRadius, colors, shadows, spacing } from "@/constants/theme";
@@ -14,6 +15,7 @@ import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   Animated,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -254,32 +256,11 @@ export default function HospitalDashboard() {
         style={styles.content}
         contentContainerStyle={styles.contentContainer}
       >
-        {/* Map Section */}
-        {/* <View style={styles.mapSection}>
-          <Text style={styles.sectionTitle}>Incoming Ambulances</Text>
-          <CustomMapView
-            style={styles.map}
-            markers={[
-              {
-                id: "hospital",
-                coordinate: hospitalLocation,
-                title: "Hospital",
-                type: "hospital",
-              },
-              ...incomingAmbulances.map((ambulance) => ({
-                id: ambulance.id,
-                coordinate: ambulance.location,
-                title: `Ambulance ${ambulance.ambulanceId}`,
-                type: "ambulance",
-              })),
-            ]}
-            initialRegion={{
-              ...hospitalLocation,
-              latitudeDelta: 0.02,
-              longitudeDelta: 0.02,
-            }}
-          />
-        </View> */}
+          {Platform.OS !== "web" && (
+               <View>
+                 <AlertsMap />
+               </View>
+             )}
 
         {/* Incoming Ambulances Section */}
         <Text style={styles.sectionTitle}>Incoming Emergencies</Text>
