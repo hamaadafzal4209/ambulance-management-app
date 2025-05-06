@@ -4,6 +4,7 @@ import { useOnboarding } from "@/components/onboarding-provider";
 import { SplashScreen } from "@/components/splash-screen";
 import { borderRadius, colors, shadows, spacing } from "@/constants/theme";
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, router } from "expo-router";
 import React, { useEffect } from "react";
@@ -29,6 +30,20 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, [hasCompletedOnboarding]);
+
+  useEffect(() => {
+    const removeOnboardingFlag = async () => {
+      try {
+        await AsyncStorage.removeItem("onboarding_completed");
+        console.log("Onboarding flag removed.");
+      } catch (error) {
+        console.error("Failed to remove onboarding flag:", error);
+      }
+    };
+  
+    removeOnboardingFlag();
+  }, []);
+  
 
   if (isLoading || !hasCompletedOnboarding) {
     return <SplashScreen />;

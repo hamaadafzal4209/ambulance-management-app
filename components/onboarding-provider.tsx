@@ -24,7 +24,6 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    // Check if onboarding has been completed
     const checkOnboardingStatus = async () => {
       try {
         const value = await AsyncStorage.getItem(ONBOARDING_COMPLETED_KEY)
@@ -38,7 +37,7 @@ export function OnboardingProvider({ children }: { children: ReactNode }) {
 
     checkOnboardingStatus()
   }, [])
-
+  
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem(ONBOARDING_COMPLETED_KEY, "true")
