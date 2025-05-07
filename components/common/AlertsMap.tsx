@@ -1,7 +1,7 @@
 // AlertsMap.tsx
-import React from "react"
-import { StyleSheet, View, Dimensions } from "react-native"
-import MapView, { Marker } from "react-native-maps"
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 // Example mock data (replace with your alert data)
 const alerts = [
@@ -21,7 +21,7 @@ const alerts = [
     longitude: 39.1925,
     priority: "medium",
   },
-]
+];
 
 export default function AlertsMap() {
   return (
@@ -29,7 +29,7 @@ export default function AlertsMap() {
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 23.8859, 
+          latitude: 23.8859,
           longitude: 45.0792,
           latitudeDelta: 10,
           longitudeDelta: 10,
@@ -38,7 +38,10 @@ export default function AlertsMap() {
         {alerts.map((alert) => (
           <Marker
             key={alert.id}
-            coordinate={{ latitude: alert.latitude, longitude: alert.longitude }}
+            coordinate={{
+              latitude: alert.latitude,
+              longitude: alert.longitude,
+            }}
             title={`Ambulance #${alert.ambulanceId}`}
             description={`Priority: ${alert.priority}`}
             pinColor={
@@ -52,7 +55,7 @@ export default function AlertsMap() {
         ))}
       </MapView>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -62,7 +65,7 @@ const styles = StyleSheet.create({
     height: 200,
   },
   map: {
-    width: '100%',
+    width: "100%",
     height: 200,
   },
-})
+});
