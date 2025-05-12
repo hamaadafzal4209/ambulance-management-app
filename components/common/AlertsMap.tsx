@@ -1,9 +1,7 @@
-// AlertsMap.tsx
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
-// Example mock data (replace with your alert data)
 const alerts = [
   {
     id: "1",
@@ -19,7 +17,7 @@ const alerts = [
     location: "Jeddah",
     latitude: 21.4858,
     longitude: 39.1925,
-    priority: "medium",
+    priority: "medium", 
   },
 ];
 
